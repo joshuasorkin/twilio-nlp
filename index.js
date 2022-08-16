@@ -39,9 +39,23 @@ wss.on("connection",function connection(ws) {
                 //create stream to Google Speech to Text API
                 recognizeStream = client
                     .streamingRecognize(request)
-                    .on("error",console.error)
+                    .on("error",error => {
+                        console.log(error);
+                        process.exit();
+                    })
                     .on("data",data => {
-                        console.log(data.results[0].alternatives[0].transcript);
+                        let content = data.results[0].alternatives[0].transcript;
+                        console.log(content);
+                        wss.clients.forEach(client => {
+                            if(client.readyState === WebSocket.OPEN){
+                                client.send(
+                                    JSON.stringify({
+                                        event:"interim-transcription",
+                                        text:content
+                                    })
+                                )
+                            }
+                        })
                     })
                 break;
             case "start":
@@ -78,10 +92,6 @@ app.post("/", async (req,res) => {
     )
     
 });
-
-app.post('/stream',(req,res) =>{
-
-})
 
 //start server
 console.log(`listening at port ${port}`);
