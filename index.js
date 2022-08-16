@@ -7,6 +7,17 @@ const wss = new WebSocket.Server({ server });
 const WaveFile = require('wavefile').WaveFile;
 const port = 8080;
 const path = require('path');
+const speech = require('@google-cloud/speech');
+const client = new speech.SpeechClient();
+
+const request = {
+    config: {
+        encoding:"MULAW",
+        sampleRateHertz: 8000,
+        languageCode: "en-GB"
+    },
+    interimResults:true
+}
 
 let chunks = [];
 
