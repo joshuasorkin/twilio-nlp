@@ -59,6 +59,7 @@ wss.on("connection",function connection(ws) {
                                     })
                                 );
                                 let entities = entityExtractor.analyze(content);
+                                console.log(JSON.stringify(entities));
                                 client.send(
                                     JSON.stringify({
                                         event:"interim-entities",
