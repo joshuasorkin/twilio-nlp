@@ -12,6 +12,10 @@ const path = require('path');
 const speech = require('@google-cloud/speech');
 const client = new speech.SpeechClient();
 
+//include entity extractor
+const EntityExtractor = require('./entity-extractor');
+const entityExtractor = new EntityExtractor();
+
 //configure transcription request
 const request = {
     config: {
@@ -52,6 +56,13 @@ wss.on("connection",function connection(ws) {
                                     JSON.stringify({
                                         event:"interim-transcription",
                                         text:content
+                                    })
+                                );
+                                let entities = entityExtractor.analyze(content);
+                                client.send(
+                                    JSON.stringify({
+                                        event:"interim-entities",
+                                        text:entities
                                     })
                                 )
                             }
