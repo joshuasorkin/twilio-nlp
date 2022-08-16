@@ -53,6 +53,7 @@ wss.on("connection",function connection(ws) {
                 break;
             case "stop":
                 console.log(`Call has ended`);
+                recognizeStream.destroy();
                 break;
         }
     });
