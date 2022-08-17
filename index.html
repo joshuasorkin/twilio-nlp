@@ -21,7 +21,18 @@
               document.getElementById("transcription-container").innerHTML = data.text;
               break;
             case "interim-entities":
-              document.getElementById("entities-container").innerHTML = data.text;
+              let entities = JSON.parse(data.text);
+              let entityOutput = "";
+              entities.forEach(entity => {
+                let wikipedia;
+                if (entity.metadata && entity.metadata.wikipedia_url) {
+                    wikipedia = ` - Wikipedia URL: ${entity.metadata.wikipedia_url}`;
+                }
+                entityOutput = [entity.name,
+                                ` - Type: ${entity.type}, Salience: ${entity.salience}`,
+                                wikipedia].join("\n");
+                });
+              document.getElementById("entities-container").innerHTML = entityOutput;
           }
         };
       });

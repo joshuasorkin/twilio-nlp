@@ -56,24 +56,6 @@ wss.on("connection",function connection(ws) {
                             if(client.readyState === WebSocket.OPEN){
                                 dataSender.sendAll(client,content);
                             }
-                            /*
-                            if(client.readyState === WebSocket.OPEN){
-                                client.send(
-                                    JSON.stringify({
-                                        event:"interim-transcription",
-                                        text:content
-                                    })
-                                );
-                                let entities = entityExtractor.analyze(content);
-                                console.log(JSON.stringify(entities));
-                                client.send(
-                                    JSON.stringify({
-                                        event:"interim-entities",
-                                        text:entities
-                                    })
-                                )
-                            }
-                            */
                         })
                     })
                 break;
