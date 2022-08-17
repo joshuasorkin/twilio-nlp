@@ -9,6 +9,7 @@ class EntityExtractor{
         }
         const [result] = await client.analyzeEntities({document});
         const entities = result.entities;
+        return entities;
     }
 }
 

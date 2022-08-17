@@ -14,6 +14,8 @@ const client = new speech.SpeechClient();
 
 //include entity extractor
 const EntityExtractor = require('./entity-extractor');
+const DataSender = require("./data-sender");
+const dataSender = new DataSender();
 const entityExtractor = new EntityExtractor();
 
 //configure transcription request
@@ -52,6 +54,10 @@ wss.on("connection",function connection(ws) {
                         console.log(content);
                         wss.clients.forEach(client => {
                             if(client.readyState === WebSocket.OPEN){
+                                dataSender.sendAll(client,content);
+                            }
+                            /*
+                            if(client.readyState === WebSocket.OPEN){
                                 client.send(
                                     JSON.stringify({
                                         event:"interim-transcription",
@@ -67,6 +73,7 @@ wss.on("connection",function connection(ws) {
                                     })
                                 )
                             }
+                            */
                         })
                     })
                 break;
@@ -84,6 +91,8 @@ wss.on("connection",function connection(ws) {
         }
     });
 });
+
+
 
 //handle HTTP request
 app.get("/", (req,res) => res.sendFile(path.join(__dirname,"/index.html")));
