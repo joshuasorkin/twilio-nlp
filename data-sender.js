@@ -13,7 +13,7 @@ class DataSender{
     }
 
     async sendEntities(client,content){
-        let entities = entityExtractor.analyze(content);
+        let entities = await entityExtractor.analyze(content);
         client.send(
             JSON.stringify({
                 event:"interim-entities",
