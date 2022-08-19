@@ -24,7 +24,8 @@ const request = {
         encoding:"MULAW",
         sampleRateHertz: 8000,
         languageCode: "en-GB",
-        enableAutomaticPunctuation:true
+        enableAutomaticPunctuation:true,
+        useEnhanced:true
     },
     interimResults:true
 }
