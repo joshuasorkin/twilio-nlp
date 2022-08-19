@@ -23,7 +23,8 @@ const request = {
     config: {
         encoding:"MULAW",
         sampleRateHertz: 8000,
-        languageCode: "en-GB"
+        languageCode: "en-GB",
+        enableAutomaticPunctuation:true
     },
     interimResults:true
 }
