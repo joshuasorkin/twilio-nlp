@@ -4,7 +4,6 @@ const express = require("express");
 const app = express();
 const server = require("http").createServer(app);
 const wss = new WebSocket.Server({ server });
-const WaveFile = require('wavefile').WaveFile;
 const port = 8080;
 const path = require('path');
 
